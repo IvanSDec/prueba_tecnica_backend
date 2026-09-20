@@ -35,7 +35,7 @@ class Character(models.Model):
     species = models.CharField(max_length=100)
     type = models.CharField(max_length=100, blank=True, null=True)
     gender = models.CharField(max_length=50, blank=True, null=True)
-    image = models.URLField()
+    image = models.URLField(max_length=1000)
     is_custom = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
