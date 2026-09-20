@@ -13,60 +13,70 @@ from rest_framework_simplejwt.views import TokenObtainPairView
     @LAST_UPDATE: 2026-09-19
     @DESCRIPTION: Vistas para el CRUD completo de Usuarios y autenticación con permisos JWT.
 """
-#* Vista para listar y crear usuarios.
-@api_view(['GET', 'POST'])
-def user_list_create(request):
-    if request.method == 'GET':
-        if not request.user.is_authenticated or not CanViewUsers().has_permission(request, None):
-            return Response({'detail': 'No tienes permisos para ver usuarios.'}, status=status.HTTP_403_FORBIDDEN)
-            
-        users = User.objects.filter(is_active=True)
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    elif request.method == 'POST':
-        if 'password' not in request.data:
-            return Response(
-                {"password": ["Este campo es requerido."]}, 
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-#* Vista para obtener, actualizar, y desactivar un usuario específico.
-@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
+#* Vista para listar usuarios.
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def user_detail(request, pk):
+def user_list(request):
+    if not CanViewUsers().has_permission(request, None):
+        return Response({'detail': 'No tienes permisos para ver usuarios.'}, status=status.HTTP_403_FORBIDDEN)
+
+    users = User.objects.filter(is_active=True)
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+#* Vista para crear usuarios.
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def user_create(request):
+    if 'password' not in request.data:
+        return Response(
+            {"password": ["Este campo es requerido."]},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+#* Vista para recuperar un usuario específico.
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_retrieve(request, pk):
+    if not CanViewUsers().has_permission(request, None):
+        return Response({'detail': 'No tienes permiso para ver este usuario.'}, status=status.HTTP_403_FORBIDDEN)
+
     user = get_object_or_404(User, pk=pk)
+    serializer = UserSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
-    if request.method == 'GET':
-        if not CanViewUsers().has_permission(request, None):
-            return Response({'detail': 'No tienes permiso para ver este usuario.'}, status=status.HTTP_403_FORBIDDEN)
-        serializer = UserSerializer(user)
+#* Vista para actualizar un usuario específico. 
+@api_view(['PUT', 'PATCH'])
+@permission_classes([IsAuthenticated])
+def user_update(request, pk):
+    if not CanEditUsers().has_permission(request, None):
+        return Response({'detail': 'No tienes permiso para editar usuarios.'}, status=status.HTTP_403_FORBIDDEN)
+
+    user = get_object_or_404(User, pk=pk)
+    serializer = UserSerializer(user, data=request.data, partial=(request.method == 'PATCH'))
+    if serializer.is_valid():
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method in ['PUT', 'PATCH']:
-        if not CanEditUsers().has_permission(request, None):
-            return Response({'detail': 'No tienes permiso para editar usuarios.'}, status=status.HTTP_403_FORBIDDEN)
-        
-        serializer = UserSerializer(user, data=request.data, partial=(request.method == 'PATCH'))
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#* Vista para eliminar un usuario específico. 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def user_delete(request, pk):
+    if not CanEditUsers().has_permission(request, None):
+        return Response({'detail': 'No tienes permiso para desactivar usuarios.'}, status=status.HTTP_403_FORBIDDEN)
 
-    elif request.method == 'DELETE':
-        if not CanEditUsers().has_permission(request, None):
-            return Response({'detail': 'No tienes permiso para desactivar usuarios.'}, status=status.HTTP_403_FORBIDDEN)
-            
-        user.is_active = False 
-        user.save()
-        return Response({"message": "Usuario desactivado correctamente (Soft Delete)."}, status=status.HTTP_200_OK)
+    user = get_object_or_404(User, pk=pk)
+    user.is_active = False
+    user.save()
+    return Response({"message": "Usuario desactivado correctamente (Soft Delete)."}, status=status.HTTP_200_OK)
 
 
 #* Vista para restaurar un usuario específico.
