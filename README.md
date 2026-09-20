@@ -7,8 +7,8 @@
 > (https://docs.google.com/document/d/1QYgjWC7bDdbA0xCOKu9ZJMmOsJmhee2tjmyLjjFYwC8/edit?usp=sharing)
 
 ## Descripción  
-Este proyecto representa el backend y la API REST para la prueba técnica de conocimientos para Corporativo Madd Systems.  
-Proporciona la lógica de negocio, autenticación, gestión de permisos y las operaciones CRUD necesarias para administrar usuarios, roles y personajes.
+Este proyecto es una prueba técnica de conocimientos para Corporativo Madd Systems.  
+Consiste en una aplicación web con un CRUD completo para usuarios y personajes, obteniendo los datos directamente de una API pública de personajes de la serie *Rick & Morty*.
 
 ## Tecnologías utilizadas
 - **Lenguaje:** Python 3.12+
