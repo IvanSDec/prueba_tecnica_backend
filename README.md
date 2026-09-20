@@ -56,11 +56,21 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
     ```bash
     python manage.py makemigrations
 
-5. Aplicar las migraciones a la base de datos:
+0. Extra:
+    ```bash
+    Me paso en un equipo de prueba que no creaba las carpetas de makemigrations
+    lo solucione ejecutando app por app
+    python manage.py makemigrations users
+    python manage.py makemigrations roles
+    python manage.py makemigrations character
+    python manage.py makemigrations
+    y borrar la base de datos creada erroneamente volver al paso 4 e intentar nuevamente
+
+6. Aplicar las migraciones a la base de datos:
     ```bash
     python manage.py migrate
 
-6. Ejecutar el servidor de desarrollo:
+7. Ejecutar el servidor de desarrollo:
     ```bash
     python manage.py runserver
 
