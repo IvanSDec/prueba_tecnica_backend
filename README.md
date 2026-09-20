@@ -52,6 +52,10 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
     python manage.py createdatabase
     en caso de que no funcione crear manualmente la base de datos
 
+5. Preparar las migraciones a la base de datos:
+    ```bash
+    python manage.py makemigrations
+
 5. Aplicar las migraciones a la base de datos:
     ```bash
     python manage.py migrate

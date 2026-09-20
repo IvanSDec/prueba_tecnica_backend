@@ -58,7 +58,9 @@ class UserSerializer(serializers.ModelSerializer):
         
         user = User.objects.create_user(password=password, **validated_data)
         
-        if roles_data:
+        if self.context.get('registration'):
+            user.roles.add(Role.objects.get(pk=1))
+        elif roles_data:
             user.roles.set(roles_data)
         else:
             default_role, _ = Role.objects.get_or_create(name='Lector')

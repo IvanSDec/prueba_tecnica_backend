@@ -34,7 +34,13 @@ def user_create(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    serializer = UserSerializer(data=request.data)
+    serializer = UserSerializer(
+        data=request.data,
+        context={
+            'request': request,
+            'registration': not request.user.is_authenticated
+        }
+    )
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
