@@ -5,17 +5,17 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Serializadores para gestión de usuarios y autenticación personalizada JWT.
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Serializadores para gestión de usuarios y autenticación personalizada JWT.
 """
-
+#* Serializadores para gestión de usuarios y autenticación personalizada JWT.
 class RoleSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
         fields = ['id', 'name']
 
-
+#* Serializador para el modelo User.
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         write_only=True, 
@@ -83,7 +83,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         return instance
 
-
+#* Serializador personalizado para la obtención de tokens JWT que incluye información adicional del usuario.
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     username_field = User.EMAIL_FIELD
 

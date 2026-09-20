@@ -8,14 +8,12 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'clave-por-defecto')
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7zysam9x$w=x2ik+1-i+#pvso1wt8k(g(b#vi$$wns@jcz=)9n'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Validación de seguridad: evita que el servidor arranque sin SECRET_KEY en producción
+if not SECRET_KEY:
+    raise ValueError("¡ERROR CRÍTICO: No se ha configurado la variable SECRET_KEY en el archivo .env!")
 
 # ESPECIFICACION DE ORÍGENES PERMITIDOS PARA CORS
 CORS_ALLOWED_ORIGINS = [

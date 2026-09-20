@@ -21,6 +21,12 @@ El uso de **Python** y **Django** fue seleccionado conforme a los requerimientos
 
 ## Requisitos previos
 - **Python** instalado en el equipo (versión 3.10 o superior).
+- **MySQL** instalado en el equipo.
+
+## Recomendaciónes de extenciones para visualizar mejor el codigo
+- **Better Comments**
+- **Error Lens**
+- **Material Icon Theme**
 
 ## Instalación
 Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
@@ -37,12 +43,18 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
 3. Instalar dependencias:
     ```bash
     pip install -r requirements.txt
+    asegurate de tener ya tu .env creado y conf en este paso
 
-4. Aplicar las migraciones a la base de datos:
+4. **IMPORTANTE** Ejecuta el comando para crear la base de datos en MySQL:
+    ```bash
+    python manage.py createdatabase
+    en caso de que no funcione crear manualmente la base de datos
+
+5. Aplicar las migraciones a la base de datos:
     ```bash
     python manage.py migrate
 
-5. Ejecutar el servidor de desarrollo:
+6. Ejecutar el servidor de desarrollo:
     ```bash
     python manage.py runserver
 

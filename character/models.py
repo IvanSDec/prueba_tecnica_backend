@@ -1,9 +1,9 @@
 from django.db import models
 
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Modelos para Character, Location y Episode
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Modelos para Character, Location y Episode
 """
 class Location(models.Model):
     #* Modelo para representar una ubicación en el universo de Rick and Morty

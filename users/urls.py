@@ -7,9 +7,9 @@ from .views import (
 )
 
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: URLs para los endpoints del CRUD de Usuarios y obtención de Token.
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: URLs para los endpoints del CRUD de Usuarios y obtención de Token.
 """
 urlpatterns = [
     #* Autenticación
@@ -17,6 +17,10 @@ urlpatterns = [
     
     #* CRUD de Usuarios
     path('', user_list_create, name='user-list-create'),
+    
+    #* Detalle de un usuario específico por su ID.
     path('<int:pk>/', user_detail, name='user-detail'),
+    
+    #* Restaurar un usuario específico por su ID.
     path('<int:pk>/restore/', restore_user, name='user-restore'),
 ]

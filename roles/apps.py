@@ -3,11 +3,12 @@ import sys
 from django.apps import AppConfig
 from utils.colors import Color, print_colored
 
-""" 
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Configuración e inicialización de roles predeterminados en la base de datos.
 """
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Configuración e inicialización de roles predeterminados en la base de datos.
+"""
+#* Función para configurar los roles predeterminados en la base de datos.
 def setup_default_roles():
     from .models import Role
 
@@ -53,6 +54,7 @@ class RolesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'roles'
 
+    #* Método que se ejecuta cuando la aplicación está lista. Aquí se inicializan los roles predeterminados.
     def ready(self):
         is_server = any(arg in sys.argv for arg in ['runserver', 'gunicorn', 'uvicorn'])
         if is_server and os.environ.get('RUN_MAIN') == 'true':

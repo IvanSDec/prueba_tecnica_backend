@@ -9,11 +9,11 @@ from .permissions import CanViewUsers, CanEditUsers
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Vistas para el CRUD completo de Usuarios y autenticación con permisos JWT.
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Vistas para el CRUD completo de Usuarios y autenticación con permisos JWT.
 """
-
+#* Vista para listar y crear usuarios.
 @api_view(['GET', 'POST'])
 def user_list_create(request):
     if request.method == 'GET':
@@ -25,7 +25,6 @@ def user_list_create(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == 'POST':
-        # Permite registro público o controlado por permisos si está autenticado
         if 'password' not in request.data:
             return Response(
                 {"password": ["Este campo es requerido."]}, 
@@ -39,6 +38,7 @@ def user_list_create(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+#* Vista para obtener, actualizar, y desactivar un usuario específico.
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def user_detail(request, pk):
@@ -69,6 +69,7 @@ def user_detail(request, pk):
         return Response({"message": "Usuario desactivado correctamente (Soft Delete)."}, status=status.HTTP_200_OK)
 
 
+#* Vista para restaurar un usuario específico.
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def restore_user(request, pk):

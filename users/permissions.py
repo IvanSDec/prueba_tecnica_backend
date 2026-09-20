@@ -1,11 +1,11 @@
 from rest_framework.permissions import BasePermission
 
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Permisos personalizados basados en las banderas de rol del usuario.
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Permisos personalizados basados en las banderas de rol del usuario.
 """
-
+#* Permisos personalizados basados en las banderas de rol del usuario.
 class CanViewUsers(BasePermission):
     def has_permission(self, request, view):
         if not request.user or not request.user.is_authenticated:
@@ -14,7 +14,7 @@ class CanViewUsers(BasePermission):
             return True
         return request.user.roles.filter(ver_usuarios=True).exists()
 
-
+#* Permiso para editar usuarios.
 class CanEditUsers(BasePermission):
     def has_permission(self, request, view):
         if not request.user or not request.user.is_authenticated:

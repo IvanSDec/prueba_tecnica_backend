@@ -2,9 +2,9 @@ from django.contrib import admin
 from .models import Character, Location, Episode
 
 """ 
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Configuración del panel de administración para los modelos Character, Location y Episode.
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Configuración del panel de administración para los modelos Character, Location y Episode.
 """
 @admin.register(Character)
 #* Configuración del panel de administración para el modelo Character.

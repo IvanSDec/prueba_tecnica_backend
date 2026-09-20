@@ -12,9 +12,9 @@ from .views import (
 )
 
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: URLs para los endpoints de Character
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: URLs para los endpoints de Character
 """
 urlpatterns = [
     #* Endpoint para listar todos los personajes
@@ -42,6 +42,5 @@ urlpatterns = [
     path('locations/', get_locations, name='get-locations'),
     
     #* Endpoint para obtener la lista de todos los episodios en BD
-    path('episodes/', get_episodes, name='get-episodes'),
-    
+    path('episodes/', get_episodes, name='get-episodes'), 
 ]

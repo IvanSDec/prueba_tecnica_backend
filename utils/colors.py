@@ -1,8 +1,9 @@
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Módulo centralizado para texto formateado y con colores ANSI en la consola.
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Módulo centralizado para texto formateado y con colores ANSI en la consola.
 """
+#* Clase y funciones para manejo de colores y estilos de texto en la consola.
 class Color:
     RED = "\033[91m"
     GREEN = "\033[92m"
@@ -16,8 +17,7 @@ class Color:
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
 
-
+#* Función de utilidad para imprimir texto con color y formato en la consola.
 def print_colored(text: str, color: str = Color.WHITE, bold: bool = False):
-    #* Función de utilidad para imprimir rápidamente texto con color y formato en la consola.
     style = Color.BOLD if bold else ""
     print(f"{style}{color}{text}{Color.RESET}")

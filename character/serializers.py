@@ -3,20 +3,23 @@ from rest_framework import serializers
 from .models import Character, Location, Episode
 
 """
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Serializers para los modelos de Character, Location y Episode
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Serializers para los modelos de Character, Location y Episode
 """
+#* Serializers para los modelos de Character, Location y Episode
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ['id', 'location_id', 'name', 'type', 'dimension', 'url']
 
+#* Serializer para el modelo Episode
 class EpisodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Episode
         fields = ['id', 'episode_id', 'name', 'air_date', 'episode', 'url']
 
+#* Serializer para el modelo Character
 class CharacterSerializer(serializers.ModelSerializer):
     origin_detail = LocationSerializer(source='origin', read_only=True)
     location_detail = LocationSerializer(source='location', read_only=True)

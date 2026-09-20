@@ -11,10 +11,10 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Location, Episode
 from .serializers import LocationSerializer, EpisodeSerializer
 
-""" 
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Vistas para los endpoints del CRUD de Character y sincronización
+"""
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Vistas para los endpoints del CRUD de Character y sincronización
 """
 @api_view(['GET'])
 #* Vista para obtener la lista de personajes paginada y filtrada (Solo activos)

@@ -5,10 +5,11 @@ from django.apps import AppConfig
 from utils.colors import Color, print_colored
 
 """ 
-AUTHOR: Ivan Sanchez
-LAST_UPDATE: 2026-09-19
-DESCRIPTION: Configuración de la aplicación Character y sincronización inicial de personajes.
+    @AUTHOR: Ivan Sanchez
+    @LAST_UPDATE: 2026-09-19
+    @DESCRIPTION: Configuración de la aplicación Character y sincronización inicial de personajes.
 """
+#* Función para ejecutar la sincronización inicial de personajes.
 def run_sync():
     try:
         from .services import fetch_and_save_characters
@@ -21,16 +22,12 @@ def run_sync():
     except Exception as e:
         print_colored(f"Error al sincronizar personajes: {e}", Color.YELLOW)
 
+#* Configuración de la aplicación Character.
 class CharacterConfig(AppConfig):
-    #* Configuración de la aplicación Character.
     default_auto_field = 'django.db.models.BigAutoField'
-    #* Nombre de la aplicación.
     name = 'character'
-
+    #* Método que se ejecuta cuando la aplicación está lista.
     def ready(self):
-        #* Método que se ejecuta cuando la aplicación está lista.
         is_server = any(arg in sys.argv for arg in ['runserver', 'gunicorn', 'uvicorn'])
-        #* Verificar si el servidor está en ejecución y si es el proceso principal.
         if is_server and os.environ.get('RUN_MAIN') == 'true':
-            #* Ejecutar la sincronización inicial en un hilo separado para no bloquear el inicio de Django.
             threading.Thread(target=run_sync, daemon=True).start()
