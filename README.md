@@ -15,8 +15,8 @@ Consiste en una aplicación web con un CRUD completo para usuarios y personajes,
 ## Tecnologías utilizadas
 - **Lenguaje:** Python 3.12+
 - **Framework:** Django & Django REST Framework (DRF)
-- **Base de datos:** SQLite (por defecto para desarrollo)
-- **Arquitectura:** Monolito Modular basado en MVT / Service Layer
+- **Base de datos:** MYSQL
+- **Arquitectura:** MVT (Model-View-Template)
 
 ## ¿Por qué estas tecnologías?  
 El uso de **Python** y **Django** fue seleccionado conforme a los requerimientos especificados en la prueba técnica. Se implementó una **arquitectura modular** aprovechando el sistema de apps de Django (`users`, `roles`, `character`), parta mantener una separación clara de responsabilidades.
